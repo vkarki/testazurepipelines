@@ -7,21 +7,32 @@ pool:
 
 stages:
 - stage: Build
+  variables:
+    environment: Dev
   jobs: 
   - job: FirstJob
     steps:
     - script: echo stage build first job
-  
   - job: SecondJob
+    dependsOn: FirstJob
     steps:
-    - script: echo stage build second job
+    - script: |
+        echo value of testVar is $(testVar)
+        echo $(environment)
+        echo stage build second job
 
 - stage: QA
+  variables:
+    environment: QA
+  dependsOn: Build
   jobs:
   - job: FirstJob
     steps:
-    - script: echo stage QA first job
+    - script: |
+        echo stage QA first job
+        echo $(environment)
   - job: SecondJob
+    dependsOn: FirstJob
     steps: 
     - script: echo stage QA secondjob
   
