@@ -5,7 +5,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 jobs:
-- job: job1 
+- job: DisplayHelloWorld
   steps:
   - script: echo Hello, world!
     displayName: 'Run a one-line script'
@@ -16,15 +16,18 @@ jobs:
       echo Add other tasks to build, test, and deploy your project.
       echo See https://aka.ms/yaml
     displayName: 'Run a multi-line script'
+  
 
-- job: job2
+- job: DisplayHiWorld
+  dependsOn: DisplayHelloWorld
   steps:
-  -  script: echo helloworld
+  -  script: echo hi world
 
-- job: job3
+- job: DisplayMultiline
+  dependsOn: DisplayHiWorld
   steps:
     - script: |
-         echo h
-         echo e
-         echo l
-         echo lo
+         echo Sudoko
+         echo LudoKing
+         echo Whatsapp
+
