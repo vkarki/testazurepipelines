@@ -16,6 +16,16 @@ stages:
     - bash: echo $(Build.BuildNumber)
     - bash: echo $(System.DefaultWorkingDirectory)
     - bash: echo $(Build.ArtifactStagingDirectory)
+    - bash: java -version
+    - bash: ls $(Build.ArtifactStagingDirectory)
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: '**/*.tf'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    
+    - bash: ls $(Build.ArtifactStagingDirectory)
+
 #   - job: SecondJob
 #     dependsOn: FirstJob
 #     steps:
