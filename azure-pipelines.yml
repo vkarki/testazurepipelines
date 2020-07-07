@@ -14,7 +14,7 @@ stages:
     steps:
     - bash: echo stage build first job
     - bash: echo $(Build.BuildNumber)
-    - bash: echo $(System.DefaultWorkingDirectory)
+    - bash: echo 
     - bash: echo $(Build.ArtifactStagingDirectory)
     - bash: java -version
     - bash: ls $(Build.ArtifactStagingDirectory)
@@ -26,6 +26,12 @@ stages:
     
     - bash: ls $(Build.ArtifactStagingDirectory)
 
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'transformations'
+        publishLocation: 'Container'
+        
 #   - job: SecondJob
 #     dependsOn: FirstJob
 #     steps:
