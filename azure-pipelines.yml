@@ -12,28 +12,31 @@ stages:
   jobs: 
   - job: FirstJob
     steps:
-    - script: echo stage build first job
-  - job: SecondJob
-    dependsOn: FirstJob
-    steps:
-    - script: |
-        echo value of testVar is $(testVar)
-        echo $(environment)
-        echo stage build second job
+    - bash: echo stage build first job
+    - bash: echo $(Build.BuildNumber)
+    - bash: echo $(System.DefaultWorkingDirectory)
+    - bash: echo $(Build.ArtifactStagingDirectory)
+#   - job: SecondJob
+#     dependsOn: FirstJob
+#     steps:
+#     - script: |
+#         echo value of testVar is $(testVar)
+#         echo $(environment)
+#         echo stage build second job
 
-- stage: QA
-  variables:
-    environment: QA
-  dependsOn: Build
-  jobs:
-  - job: FirstJob
-    steps:
-    - script: |
-        echo stage QA first job
-        echo $(environment)
-  - job: SecondJob
-    dependsOn: FirstJob
-    steps: 
-    - script: echo stage QA secondjob
+# - stage: QA
+#   variables:
+#     environment: QA
+#   dependsOn: Build
+#   jobs:
+#   - job: FirstJob
+#     steps:
+#     - script: |
+#         echo stage QA first job
+#         echo $(environment)
+#   - job: SecondJob
+#     dependsOn: FirstJob
+#     steps: 
+#     - script: echo stage QA secondjob
   
   
