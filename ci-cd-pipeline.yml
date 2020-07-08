@@ -42,25 +42,25 @@ stages:
   
 #Deploy to K8s cluster
 - stage: Deploy
-displayName: Deploy pods
-jobs:  
-- job: Deploy
-  displayName: Deploy
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-  - task: DownloadPipelineArtifact@2
-    inputs:
-      buildType: 'current'
-      artifactName: 'manifests'
-      itemPattern: '**/*.yaml'
-      targetPath: '$(System.ArtifactsDirectory)'
+  displayName: Deploy pods
+  jobs:  
+  - job: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'manifests'
+        itemPattern: '**/*.yaml'
+        targetPath: '$(System.ArtifactsDirectory)'
 
-  - task: KubernetesManifest@0
-    inputs:
-      action: 'deploy'
-      kubernetesServiceConnection: 'azurekubernetes'
-      namespace: 'default'
-      manifests: '$(System.ArtifactsDirectory)/deployment.yaml'
-      containers: 'vivin89/testpipeline:${tag}'
+    - task: KubernetesManifest@0
+      inputs:
+        action: 'deploy'
+        kubernetesServiceConnection: 'azurekubernetes'
+        namespace: 'default'
+        manifests: '$(System.ArtifactsDirectory)/deployment.yaml'
+        containers: 'vivin89/testpipeline:${tag}'
     
