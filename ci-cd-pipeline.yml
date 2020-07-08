@@ -6,7 +6,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  tag: 23
+  tag: 14
 
 # #Build Docker Image
 # #Get K8's Manifests
