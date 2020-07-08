@@ -11,33 +11,32 @@ variables:
 # #Build Docker Image
 # #Get K8's Manifests
 stages:
-# - stage: Build
-#   displayName: Build image
-#   jobs:  
-#   - job: Build
-#     displayName: Build
-#     pool:
-#       vmImage: 'ubuntu-latest'
-#     steps:
-#     - task: Docker@2
-#       inputs:
-#         containerRegistry: 'dockerazure'
-#         repository: 'vivin89/testpipeline'
-#         command: 'buildAndPush'
-#         Dockerfile: '**/Dockerfile'
-#         tags: '$(tag)'
-
-#     - task: CopyFiles@2
-#       inputs:
-#       SourceFolder: '$(System.DefaultWorkingDirectory)'
-#       Contents: '**/*.tf'
-#       TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- stage: Build
+  displayName: Build image
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    # - task: Docker@2
+    #   inputs:
+    #     containerRegistry: 'dockerazure'
+    #     repository: 'vivin89/testpipeline'
+    #     command: 'buildAndPush'
+    #     Dockerfile: '**/Dockerfile'
+    #     tags: '$(tag)'
+    - task: CopyFiles@2
+      inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)'
+      Contents: '**/*.yaml'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
   
-#     - task: PublishBuildArtifacts@1
-#       inputs:
-#       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#       ArtifactName: 'manifests'
-#       publishLocation: 'Container'
+    - task: PublishBuildArtifacts@1
+      inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'manifests'
+      publishLocation: 'Container'
 
   
 #Deploy to K8s cluster
