@@ -28,15 +28,15 @@ stages:
     #     tags: '$(tag)'
     - task: CopyFiles@2
       inputs:
-      SourceFolder: '$(System.DefaultWorkingDirectory)'
-      Contents: '**/*.yaml'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: '**/*.yaml'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
   
     - task: PublishBuildArtifacts@1
       inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'manifests'
-      publishLocation: 'Container'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'manifests'
+        publishLocation: 'Container'
 
   
 #Deploy to K8s cluster
@@ -60,6 +60,6 @@ stages:
         action: 'deploy'
         kubernetesServiceConnection: 'azurekubernetes'
         namespace: 'default'
-        manifests: '$(System.ArtifactsDirectory)/deployment.yaml'
-        containers: 'vivin89/testpipeline:${tag}'
+        manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
+        containers: 'vivin89/testpipeline:$(tag)'
     
